@@ -24,17 +24,17 @@ import { searchToken } from "@/utils/search-token";
 
 const app = new Elysia({ prefix: "/api", aot: false })
   .use(swagger())
-  .get("/:token", async ({ params: { token } }) => {
-    const tokenMatch = searchToken(token)[0];
+  .get("/:account", async ({ params: { account } }) => {
+    const tokenMatch = searchToken(account)[0];
     if (!tokenMatch) {
       return {
-        error: `Token ${token} not found`,
+        error: `Token ${account} not found`,
       };
     }
     const tokenMetadata = await ftGetTokenMetadata(tokenMatch.id);
     if (!tokenMetadata) {
       return {
-        error: `Metadata for token ${token} not found`,
+        error: `Metadata for token ${account} not found`,
       };
     }
 
