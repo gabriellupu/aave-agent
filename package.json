@@ -1,5 +1,6 @@
 {
-  "name": "ref-agent",
+  "name": "bitte-karma-agent",
+  "description": "Agent for quick lookup of a subjective account karma based on the account activity history across the NEAR ecosystem.",
   "version": "0.1.0",
   "private": true,
   "scripts": {

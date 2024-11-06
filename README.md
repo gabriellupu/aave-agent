@@ -1,4 +1,8 @@
-# Ref Finance DeFi Swap Agent
+# Bitte Karma Agent
+
+Agent for quick lookup of a subjective account karma based on the account activity history across the NEAR ecosystem.
+
+## Overview
 
 <img src="https://github.com/user-attachments/assets/aa54bac4-30ef-49bb-bac7-732ff561bd95" alt="cover_image" width="0"/>
 
@@ -27,11 +31,12 @@ https://ref-finance-agent.vercel.app
 - Swap Transactions `GET` `/api/swap/{tokenIn}/{tokenOut}/{quantity}`
 
 #### Usage
+
 Make LLM requests to the endpoints above. Refer to the full API documentation for detailed parameter and response information.
 
-
 ## Getting Started
-[Docs to integrate](https://docs.mintbase.xyz/ai/assistant-plugins)  
+
+[Docs to integrate](https://docs.mintbase.xyz/ai/assistant-plugins)
 
 ### Installation
 
@@ -46,6 +51,7 @@ pnpm dev
 ```
 
 ## Demo
+
 https://github.com/Mintbase/ref-finance-agent-next/assets/838839/3291eaf9-aa79-4c95-8c5f-673a6d72dc96
 
 ## Deploy on Vercel
@@ -55,5 +61,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 <img src="https://i.imgur.com/fgFX6BS.png" alt="detail_image" width="0"/>
-
-
