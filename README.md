@@ -16,11 +16,21 @@ Bitte Karma Agent is a tool for assessing account karma based on activity histor
 
 ## Project Walkthrough
 
-Bitte Karma Agent facilitates the development of AI-powered tools for evaluating account karma. The template supports creating, managing, and deploying karma assessment functionalities. [Build your own agent](https://docs.mintbase.xyz/ai/assistant-plugins)
+Bitte Karma Agent facilitates the development of AI-powered tools for evaluating account karma. The template supports creating, managing, and deploying karma assessment functionalities, starting with badges. [Build your own agent](https://docs.mintbase.xyz/ai/assistant-plugins)
+
+### Example: Badges of Blockchain Relevant Achievements
+
+You can use Bitte Karma Agent to assign and display badges for various blockchain-related achievements. Here are some examples:
+
+- **Early Adopter**: ![Early Adopter](https://img.shields.io/badge/Early%20Adopter-blue)
+- **Frequent Trader**: ![Frequent Trader](https://img.shields.io/badge/Frequent%20Trader-green)
+- **Community Contributor**: ![Community Contributor](https://img.shields.io/badge/Community%20Contributor-yellow)
+- **Security Auditor**: ![Security Auditor](https://img.shields.io/badge/Security%20Auditor-red)
+- **Smart Contract Developer**: ![Smart Contract Developer](https://img.shields.io/badge/Smart%20Contract%20Developer-purple)
 
 ### API Base URL
 
-https://bitte-karma-agent.vercel.app
+<https://bitte-karma-agent.vercel.app>
 
 ### Endpoints
 

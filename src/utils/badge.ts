@@ -1,6 +1,7 @@
 export interface Badge {
   name: string;
   description: string;
+  karma: number;
 }
 
 export interface MinBalance extends Badge {
