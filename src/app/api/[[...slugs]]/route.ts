@@ -6,7 +6,9 @@ import { getUserKarma } from "@/utils/user-karma";
 const app = new Elysia({ prefix: "/api", aot: false })
   .use(swagger())
   .get("/:account", async ({ params: { account } }) => {
-    const karma = getUserKarma(account);
+    // if account has no suffix, then append .near
+    const accountId = account; //.indexOf(".") >= 0 ? account : `${account}.near`;
+    const karma = getUserKarma(accountId);
     if (!karma) {
       return {
         error: `Token ${account} not found`,

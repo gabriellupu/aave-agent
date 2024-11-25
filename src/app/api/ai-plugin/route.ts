@@ -15,9 +15,9 @@ export async function GET() {
   const pluginData = {
     openapi: "3.0.0",
     info: {
-      title: "Ref Finance API",
+      title: "Karma API",
       description:
-        "API for retrieving token metadata and swapping tokens through Ref Finance.",
+        "API for retrieving account karma and badges based on actions performed by the account.",
       version: "1.0.0",
     },
     servers: [
@@ -28,25 +28,26 @@ export async function GET() {
     "x-mb": {
       "account-id": key.accountId || "",
       assistant: {
-        name: "Ref Finance Agent",
+        name: "Karma Agent",
         description:
-          "An assistant that provides token metadata and swaps tokens through Ref Finance.",
+          "An assistant that provides account karma and badges based on actions performed by the account.",
         instructions:
-          "Get information for a given fungible token or swaps one token for another. Do not modify token identifiers, they will be fuzzy matched automatically.",
+          "Get information about an account's karma and badges. Karma is calculated based on the account's activity history across the NEAR ecosystem.",
         tools: [{ type: "generate-transaction" }],
       },
     },
     paths: {
-      "/api/{token}": {
+      "/api/{account}": {
         get: {
-          operationId: "get-token-metadata",
+          operationId: "get-account-karma",
           description:
-            "Get token metadata from Ref Finance. Token identifiers can be the name, symbol, or contractId and will be fuzzy matched automatically.",
+            "Get account karma and badges based on actions performed by the account. Account identifiers can be the account ID.",
           parameters: [
             {
-              name: "token",
+              name: "account",
               in: "path",
-              description: "The identifier for the token to get metadata for.",
+              description:
+                "The identifier for the account to get karma and badges for.",
               required: true,
               schema: {
                 type: "string",
@@ -61,20 +62,22 @@ export async function GET() {
                   schema: {
                     type: "object",
                     properties: {
-                      id: {
-                        type: "string",
-                      },
-                      name: {
-                        type: "string",
-                      },
-                      symbol: {
-                        type: "string",
-                      },
-                      decimals: {
+                      karma: {
                         type: "number",
                       },
-                      icon: {
-                        type: "string",
+                      badges: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: {
+                            name: {
+                              type: "string",
+                            },
+                            description: {
+                              type: "string",
+                            },
+                          },
+                        },
                       },
                     },
                   },

@@ -77,7 +77,12 @@ export const getFastNearBadges = async (
 async function getFastNearAccountData(
   accountId: string
 ): Promise<FastNearAccountData> {
-  return (await fetch(
+  console.log(
+    "Fetching account data from FastNear",
     `https://api.fastnear.com/v1/account/${accountId}/full`
-  )) as unknown as FastNearAccountData;
+  );
+  const response = await fetch(
+    `https://api.fastnear.com/v1/account/${accountId}/full`
+  );
+  return (await response.json()) as FastNearAccountData;
 }
