@@ -28,7 +28,7 @@ export async function GET() {
     "x-mb": {
       "account-id": key.accountId || "",
       assistant: {
-        name: "Karma Agent",
+        name: "Bitte Karma Agent",
         description:
           "An assistant that provides account karma and badges based on actions performed by the account and its current state.",
         instructions: "Get information about an account's karma and badges.",

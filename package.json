@@ -11,6 +11,7 @@
     "deploy": "make-agent deploy -u https://bitte-karma-agent.vercel.app"
   },
   "dependencies": {
+    "@builddao/near-social-js": "^1.1.0",
     "@elysiajs/swagger": "^1.0.5",
     "@radix-ui/react-slot": "^1.1.0",
     "big.js": "^6.2.1",

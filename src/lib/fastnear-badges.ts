@@ -1,7 +1,9 @@
-import { Badge } from "@/utils/badge";
-import { WRAP_NEAR_CONTRACT_ID } from "@ref-finance/ref-sdk";
+import { Badge } from "@/lib/badge";
 import Big from "big.js";
 import { allowlistedTokens, AllowlistedToken } from "./allowlist-tokens";
+
+const WRAP_NEAR_CONTRACT_ID = "wrap.near";
+const MIN_BALANCE_THRESHOLD = 1e-3;
 
 export type FastNearAccountData = {
   account_id: string;
@@ -26,8 +28,6 @@ export type FastNearAccountData = {
 };
 
 type FastNeatBadgeFactory = (data: FastNearAccountData) => Badge[];
-
-const MIN_BALANCE_THRESHOLD = 1e-3;
 
 export const getAllowlistedTokenBadges: FastNeatBadgeFactory = (data) => {
   const badges: Badge[] = [];
@@ -71,8 +71,18 @@ const allBadges: FastNeatBadgeFactory[] = [
       ? [
           {
             name: "NEAR Holder",
-            description: "You hold NEAR",
-            karma: 4,
+            description: `You hold ${Big(data.state.balance)
+              .div(1e24)
+              .toFixed(2)} NEAR`,
+            karma: Big(data.state.balance).div(1e24).lt(1)
+              ? 1
+              : Big(data.state.balance).div(1e24).lt(10)
+              ? 2
+              : Big(data.state.balance).div(1e24).lt(100)
+              ? 3
+              : Big(data.state.balance).div(1e24).lt(1000)
+              ? 4
+              : 5,
             minBalance: MIN_BALANCE_THRESHOLD,
           },
         ]
@@ -94,7 +104,9 @@ const allBadges: FastNeatBadgeFactory[] = [
       ? [
           {
             name: "NFT Collector",
-            description: "You own at least one NFT",
+            description: `You own ${data.nfts.length} NFT${
+              data.nfts.length > 1 ? "s" : ""
+            }`,
             karma: getKarmaForNfts(data.nfts),
           },
         ]
@@ -128,10 +140,13 @@ async function getFastNearAccountData(
   );
   return (await response.json()) as FastNearAccountData;
 }
+
 function getKarmaForNfts(
   nfts: { contract_id: string; last_update_block_height: number | null }[]
 ): number {
-  if (nfts.length > 10) return 3;
+  if (nfts.length > 20) return 5;
+  if (nfts.length > 10) return 4;
+  if (nfts.length > 5) return 3;
   if (nfts.length > 1) return 2;
   if (nfts.length === 1) return 1;
   return 0;

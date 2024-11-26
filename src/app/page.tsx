@@ -9,7 +9,7 @@ export default function Home() {
       <Card className="max-w-2xl mx-auto border-border">
         <CardHeader>
           <CardTitle className="text-4xl text-foreground">
-            Karma Agent
+            Bitte Karma Agent
           </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
