@@ -6,7 +6,8 @@
   "scripts": {
     "dev:next": "next dev",
     "dev:agent": "make-agent dev -s",
-    "deploy": "next lint && next build && make-agent deploy"
+    "build": "next lint && next build",
+    "deploy": "make-agent deploy -u https://bitte-karma-agent.vercel.app"
   },
   "dependencies": {
     "@elysiajs/swagger": "^1.0.5",

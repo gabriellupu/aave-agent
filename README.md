@@ -53,17 +53,43 @@ Set `NEAR_ENV="mainnet"` in your `.env.local` file.
 pnpm i
 
 # start the development server
-pnpm dev
+pnpm dev:next
+
+# start the agent development server
+pnpm dev:agent
 ```
 
 ## Demo
 
 https://github.com/alexastrum/bitte-karma-agent/assets/838839/3291eaf9-aa79-4c95-8c5f-673a6d72dc96
 
-## Deploy on Vercel
+## Deployment
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+### Agent registration
+
+```bash
+make-agent register https://bitte-karma-agent.vercel.app
+```
+
+### Agent redeployment
+
+```bash
+make-agent deploy -u https://bitte-karma-agent.vercel.app
+```
+
 ## Troubleshooting
+
+- Errors starting the Next.js development server:
+  - Use ai to troubleshoot the error message
+- Errors starting the agent development server:
+  - Try again in 24 hours
+- Unexpected response from the agent:
+  - Check response from https://localhost:3000/api/ai-plugin
+  - Check response from your plugin API endpoints
+  - Check the tunneling service url
+- Error deploying the agent:
+  - Check validity of https://bitte-karma-agent.vercel.app/api/ai-plugin openapi schema
