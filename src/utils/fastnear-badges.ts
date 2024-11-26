@@ -99,6 +99,16 @@ const allBadges: FastNeatBadgeFactory[] = [
           },
         ]
       : [],
+  (data) =>
+    data.pools.length > 0
+      ? [
+          {
+            name: "Staker",
+            description: "You have staked NEAR",
+            karma: 2,
+          },
+        ]
+      : [],
   getAllowlistedTokenBadges,
   // TODO: Add more badges
 ];
