@@ -31,8 +31,7 @@ export async function GET() {
         name: "Karma Agent",
         description:
           "An assistant that provides account karma and badges based on actions performed by the account and its current state.",
-        instructions:
-          "Get information about an account's karma and badges. Karma is calculated as the sum of the karma values of all badges earned by the account.",
+        instructions: "Get information about an account's karma and badges.",
         // tools: [{ type: "generate-transaction" }],
       },
     },
@@ -64,6 +63,8 @@ export async function GET() {
                     properties: {
                       karma: {
                         type: "number",
+                        description:
+                          "The karma of the account, calculated as the sum of the karma values of all badges earned by the account.",
                       },
                       badges: {
                         type: "array",
@@ -72,22 +73,26 @@ export async function GET() {
                           properties: {
                             name: {
                               type: "string",
+                              description: "The name of the badge.",
                             },
                             description: {
                               type: "string",
+                              description: "The description of the badge.",
                             },
                             karma: {
                               type: "number",
+                              description:
+                                "The karma value of the badge (can be negative).",
                             },
                             contractId: {
                               type: "string",
-                              optional: true,
+                              // nullable: true,
                               description:
                                 "The contract ID associated with the badge.",
                             },
                             minBalance: {
                               type: "number",
-                              optional: true,
+                              // nullable: true,
                               description:
                                 "The minimum balance required to earn this badge",
                             },
