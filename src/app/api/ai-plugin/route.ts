@@ -36,7 +36,7 @@ export async function GET() {
       },
     },
     paths: {
-      "/api/{account}": {
+      "/api/karma/{account}": {
         get: {
           operationId: "get-account-karma",
           description:
