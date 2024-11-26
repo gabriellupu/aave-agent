@@ -79,8 +79,15 @@ export async function GET() {
                             karma: {
                               type: "number",
                             },
+                            contractId: {
+                              type: "string",
+                              optional: true,
+                              description:
+                                "The contract ID associated with the badge.",
+                            },
                             minBalance: {
-                              type: ["number", "null"],
+                              type: "number",
+                              optional: true,
                               description:
                                 "The minimum balance required to earn this badge",
                             },
