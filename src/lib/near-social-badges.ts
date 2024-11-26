@@ -16,7 +16,7 @@ export const computeSocialBadges = async (
     // Retrieve user activity data
     const followers = Object.values(
       await social.keys({
-        keys: [`*/graph/follow/efiz.near`],
+        keys: [`*/graph/follow/${accountId}`],
         valuesOnly: true,
       })
     );
