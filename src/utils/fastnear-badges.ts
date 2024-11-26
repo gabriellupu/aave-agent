@@ -24,7 +24,7 @@ export type FastNearAccountData = {
     last_update_block_height: number | null;
   }[];
 };
-type FastNeatBadgeFactory = (data: FastNearAccountData) => Badge | undefined;
+type FastNeatBadgeFactory = (data: FastNearAccountData) => Badge[];
 
 export const getAllowlistedTokenBadges = (
   data: FastNearAccountData
@@ -46,22 +46,37 @@ export const getAllowlistedTokenBadges = (
 const allBadges: FastNeatBadgeFactory[] = [
   (data) =>
     data.state.storage_bytes > 1000000
-      ? {
-          name: "Storage hoarder",
-          description: "You have more than 1MB of storage on your account",
-          karma: 1,
-        }
-      : undefined,
+      ? [
+          {
+            name: "Storage hoarder",
+            description: "You have more than 1MB of storage on your account",
+            karma: 1,
+          },
+        ]
+      : [],
   (data) =>
     data.tokens
       .filter((token) => token.contract_id === WRAP_NEAR_CONTRACT_ID)
       .some((token) => Big(token.balance).gt(0.001))
-      ? {
-          name: "Wrapper",
-          description: "You have wrapped NEAR",
-          karma: 1,
-        }
-      : undefined,
+      ? [
+          {
+            name: "Wrapper",
+            description: "You have wrapped NEAR",
+            karma: 1,
+          },
+        ]
+      : [],
+  (data) =>
+    data.nfts.length > 0
+      ? [
+          {
+            name: "NFT Collector",
+            description: "You own at least one NFT",
+            karma: getKarmaForNfts(data.nfts),
+          },
+        ]
+      : [],
+  getAllowlistedTokenBadges,
   // TODO: Add more badges
 ];
 
@@ -69,20 +84,22 @@ export const getFastNearBadges = async (
   accountId: string
 ): Promise<Badge[]> => {
   const data = await getFastNearAccountData(accountId);
-  return allBadges
-    .map((fn) => fn(data))
-    .filter((badge) => badge !== undefined) as Badge[];
+  return allBadges.flatMap((fn) => fn(data));
 };
 
 async function getFastNearAccountData(
   accountId: string
 ): Promise<FastNearAccountData> {
-  console.log(
-    "Fetching account data from FastNear",
-    `https://api.fastnear.com/v1/account/${accountId}/full`
-  );
   const response = await fetch(
     `https://api.fastnear.com/v1/account/${accountId}/full`
   );
   return (await response.json()) as FastNearAccountData;
+}
+function getKarmaForNfts(
+  nfts: { contract_id: string; last_update_block_height: number | null }[]
+): number {
+  if (nfts.length > 10) return 3;
+  if (nfts.length > 1) return 2;
+  if (nfts.length === 1) return 1;
+  return 0;
 }
