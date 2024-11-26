@@ -1,20 +1,10 @@
 export interface Badge {
   name: string;
   description: string;
+  contractId?: string;
+  minBalance?: number; // min ft balance that qualifies for
+  // icon?: string; // not currently supported by Bitte Agents
   karma: number;
 }
 
-export interface MinBalance extends Badge {
-  min_balance: number;
-}
-
-export interface NftBadge extends Badge {
-  contract_id: string;
-}
-
-export interface TokenBadge extends Badge {
-  contract_id: string;
-  min_balance: number;
-}
-
-export type BadgeFactory = (data: any) => Badge | undefined;
+export type BadgeFactory = (userId: string) => Badge[];

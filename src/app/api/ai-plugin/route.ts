@@ -30,10 +30,10 @@ export async function GET() {
       assistant: {
         name: "Karma Agent",
         description:
-          "An assistant that provides account karma and badges based on actions performed by the account.",
+          "An assistant that provides account karma and badges based on actions performed by the account and its current state.",
         instructions:
-          "Get information about an account's karma and badges. Karma is calculated based on the account's activity history across the NEAR ecosystem.",
-        tools: [{ type: "generate-transaction" }],
+          "Get information about an account's karma and badges. Karma is calculated as the sum of the karma values of all badges earned by the account.",
+        // tools: [{ type: "generate-transaction" }],
       },
     },
     paths: {
@@ -41,13 +41,13 @@ export async function GET() {
         get: {
           operationId: "get-account-karma",
           description:
-            "Get account karma and badges based on actions performed by the account. Account identifiers can be the account ID.",
+            "Get account karma and badges based on actions performed by the account.",
           parameters: [
             {
               name: "account",
               in: "path",
               description:
-                "The identifier for the account to get karma and badges for.",
+                "The identifier for the account to get karma and badges for, e.g. 'ref-finance.near'.",
               required: true,
               schema: {
                 type: "string",
@@ -75,6 +75,14 @@ export async function GET() {
                             },
                             description: {
                               type: "string",
+                            },
+                            karma: {
+                              type: "number",
+                            },
+                            minBalance: {
+                              type: ["number", "null"],
+                              description:
+                                "The minimum balance required to earn this badge",
                             },
                           },
                         },

@@ -24,19 +24,31 @@ export type FastNearAccountData = {
     last_update_block_height: number | null;
   }[];
 };
+
 type FastNeatBadgeFactory = (data: FastNearAccountData) => Badge[];
 
-export const getAllowlistedTokenBadges = (
-  data: FastNearAccountData
-): Badge[] => {
+const MIN_BALANCE_THRESHOLD = 1e-3;
+
+export const getAllowlistedTokenBadges: FastNeatBadgeFactory = (data) => {
   const badges: Badge[] = [];
 
   for (const tokenData of data.tokens) {
     const token: AllowlistedToken = allowlistedTokens[tokenData.contract_id];
+    if (!token) continue;
+    if (
+      Big(tokenData.balance)
+        .div(Big(10).pow(token.decimals))
+        .lt(MIN_BALANCE_THRESHOLD)
+    )
+      continue;
     badges.push({
       name: `Holder of ${token.symbol}`,
-      description: `You hold the token ${token.name} (${token.symbol})`,
-      karma: 2,
+      description: `You hold the token ${token.name} (${token.symbol})${
+        token.reference ? `. Reference: ${token.reference}` : ""
+      }`,
+      contractId: tokenData.contract_id,
+      karma: token.karma !== undefined ? token.karma : 1,
+      minBalance: MIN_BALANCE_THRESHOLD,
     });
   }
 
@@ -50,7 +62,18 @@ const allBadges: FastNeatBadgeFactory[] = [
           {
             name: "Storage hoarder",
             description: "You have more than 1MB of storage on your account",
-            karma: 1,
+            karma: 10,
+          },
+        ]
+      : [],
+  (data) =>
+    Big(data.state.balance).div(1e24).gte(MIN_BALANCE_THRESHOLD)
+      ? [
+          {
+            name: "NEAR Holder",
+            description: "You hold NEAR",
+            karma: 4,
+            minBalance: MIN_BALANCE_THRESHOLD,
           },
         ]
       : [],
