@@ -10,7 +10,7 @@ Built using Next.js 14 + Shadcn/ui + Elysia (using FastNear, NearSocial) + Swagg
 
 ## Backlog
 
-- [ ] Refactor using Zod + Hono to have the OpenAPI schema auto-generated
+- [x] Refactor using Zod + Hono to have the OpenAPI schema auto-generated
 - Add more badges and APIs for the karma assessment. Some ideas:
   - [x] Badges for nearblocks.io
   - [ ] Badges for Mintbase NFT market value
