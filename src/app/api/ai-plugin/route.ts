@@ -15,9 +15,9 @@ export async function GET() {
   const pluginData = {
     openapi: "3.0.0",
     info: {
-      title: "Karma API",
+      title: "Bitte Karma API",
       description:
-        "API for retrieving account karma and badges based on actions performed by the account.",
+        "API for retrieving account karma and badges based on actions performed by the account on NEAR blockchain.",
       version: "1.0.0",
     },
     servers: [
@@ -28,7 +28,7 @@ export async function GET() {
     "x-mb": {
       "account-id": key.accountId || "",
       assistant: {
-        name: "Bitte Karma Agent",
+        name: "Karma Agent",
         description:
           "An assistant that provides account karma and badges based on actions performed by the account and its current state.",
         instructions: "Get information about an account's karma and badges.",
