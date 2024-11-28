@@ -1,20 +1,16 @@
-import { Hono } from "hono";
 import { handle } from "hono/vercel";
-import { OpenAPIHono } from "@hono/zod-openapi";
-import { z } from "zod";
-import { createRoute } from "@hono/zod-openapi";
-
+import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import { getUserKarma } from "@/lib/user-karma";
-import { KarmaResponseSchema } from "@/lib/schemas";
 import { DEPLOYMENT_URL } from "vercel-url";
+import {
+  KarmaRequestParamsSchema,
+  KarmaResponseSchema,
+  ErrorResponseSchema,
+} from "@/lib/schemas";
 
 const app = new OpenAPIHono();
 
-const ErrorResponseSchema = z.object({
-  error: z.string(),
-});
-
-const getKarmaRoute = createRoute({
+export const getKarmaRoute = createRoute({
   operationId: "get-account-karma",
   description:
     "Get account karma and badges based on actions performed by the account.",
@@ -22,13 +18,7 @@ const getKarmaRoute = createRoute({
   method: "get",
   path: "/api/karma/{account}",
   request: {
-    params: z.object({
-      account: z
-        .string()
-        .describe(
-          "The identifier for the account to get karma and badges for, e.g. ref-finance.near"
-        ),
-    }),
+    params: KarmaRequestParamsSchema,
   },
   responses: {
     200: {
@@ -52,17 +42,9 @@ const getKarmaRoute = createRoute({
 
 app.openapi(getKarmaRoute, async (c) => {
   const { account } = c.req.param();
-
-  // if account has no suffix, then append .near,
-  // but only if no suffix present and if the account is not a hash
-  let accountId = account;
-  if (!account.includes(".") && !/^[0-9a-fA-F]{64}$/.test(account)) {
-    accountId = `${account}.near`;
-  }
-
-  const karma = await getUserKarma(accountId);
+  const karma = await getUserKarma(account);
   if (!karma) {
-    return c.json({ error: `Token ${account} not found` }, 400);
+    return c.json({ error: `User ${account} not found` }, 400);
   }
   return c.json(karma, 200);
 });
