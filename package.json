@@ -7,6 +7,7 @@
     "dev:next": "next dev",
     "dev:agent": "make-agent dev -s",
     "dev:agent-lt": "echo 'Password:' && curl ifconfig.me && echo '\n' && make-agent dev",
+    "dev:agent-ngrok": "ngrok http 3000",
     "build": "next lint && next build",
     "register": "make-agent register -u https://bitte-karma-agent.vercel.app",
     "deploy": "make-agent deploy -u https://bitte-karma-agent.vercel.app"
