@@ -1,6 +1,7 @@
 import { Badge } from "./badge";
 import { getFastNearBadges } from "./fastnear-badges";
 import { computeSocialBadges } from "./near-social-badges";
+import { getNearBlocksBadges } from "./nearblocks-badges";
 
 export interface KarmaResponse {
   accountId: string;
@@ -14,6 +15,7 @@ export const getUserKarma = async (
   const badges = [
     ...(await getFastNearBadges(accountId)),
     ...(await computeSocialBadges(accountId)),
+    ...(await getNearBlocksBadges(accountId)),
   ];
   const karma = badges.reduce((total, badge) => total + badge.karma, 0);
 

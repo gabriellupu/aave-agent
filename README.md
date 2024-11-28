@@ -10,11 +10,11 @@ Built using Next.js 14 + Shadcn/ui + Elysia (using FastNear, NearSocial) + Swagg
 
 ## Backlog
 
-- [ ] Add more badges and APIs for the karma assessment. Some ideas:
-  - Badges for [nearblocks.io](https://api.nearblocks.io/v1/account/${accountId}/txns) activity & account age
-  - Badges for Mintbase NFT market value
-  - Badges for proof of personhood
 - [ ] Refactor using Zod + Hono to have the OpenAPI schema auto-generated
+- Add more badges and APIs for the karma assessment. Some ideas:
+  - [x] Badges for nearblocks.io
+  - [ ] Badges for Mintbase NFT market value
+  - [ ] Badges for proof of personhood
 - [ ] Use NearSocial contract to store community awarded badges
 - [ ] Define a process for community voting on karma points for each badge
 
