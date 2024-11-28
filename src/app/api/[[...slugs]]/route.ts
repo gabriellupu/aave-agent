@@ -126,7 +126,7 @@ app.get("/api/swagger", (c) => {
         <script>
           window.onload = () => {
             window.ui = SwaggerUIBundle({
-              url: '.well-known/ai-plugin.json',
+              url: '/.well-known/ai-plugin.json',
               dom_id: '#swagger-ui',
               theme: 'dark'
             });
