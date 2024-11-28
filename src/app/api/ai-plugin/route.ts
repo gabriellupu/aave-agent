@@ -32,7 +32,7 @@ export async function GET() {
         description:
           "An assistant that provides account karma and badges based on actions performed by the account and its current state.",
         instructions: "Get information about an account's karma and badges.",
-        image: "/karma-agent-logo.png",
+        image: (config?.url || DEPLOYMENT_URL) + "/karma-agent-logo.png",
         // tools: [{ type: "generate-transaction" }],
       },
     },
