@@ -79,7 +79,7 @@ if (!config || !config.url) {
   console.warn("Missing config or url in config.");
 }
 
-app.doc("/api/ai-plugin", {
+app.doc("/.well-known/ai-plugin.json", {
   openapi: "3.0.0",
   info: {
     title: "Bitte Karma API",
@@ -126,7 +126,7 @@ app.get("/api/swagger", (c) => {
         <script>
           window.onload = () => {
             window.ui = SwaggerUIBundle({
-              url: '/api/ai-plugin',
+              url: '.well-known/ai-plugin.json',
               dom_id: '#swagger-ui',
               theme: 'dark'
             });

@@ -78,8 +78,8 @@ make-agent deploy -u https://bitte-karma-agent.vercel.app
 - Errors starting the agent development server:
   - Try again in 24 hours
 - Unexpected response from the agent:
-  - Check response from https://localhost:3000/api/ai-plugin
+  - Check response from https://localhost:3000/.well-known/ai-plugin.json
   - Check response from your plugin API endpoints
   - Check the tunneling service url
 - Error deploying the agent:
-  - Check validity of https://bitte-karma-agent.vercel.app/api/ai-plugin openapi schema
+  - Check validity of https://bitte-karma-agent.vercel.app/.well-known/ai-plugin.json openapi schema
