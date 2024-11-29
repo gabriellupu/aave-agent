@@ -10,7 +10,7 @@ import {
 
 const app = new OpenAPIHono();
 
-export const getKarmaRoute = createRoute({
+const getKarmaRoute = createRoute({
   operationId: "get-account-karma",
   description:
     "Get account karma and badges based on actions performed by the account.",
