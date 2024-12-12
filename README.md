@@ -6,7 +6,7 @@ Agent for quick lookup of a subjective account karma based on the account activi
 
 Bitte Karma Agent is a tool for assessing account karma based on activity history within the NEAR ecosystem.
 
-Built using Next.js 14 + Shadcn/ui + Elysia (using FastNear, NearSocial) + Swagger UI.
+Built using Next.js 14 + Shadcn/ui + Hono (using FastNear, NearSocial) + Zod + Swagger UI.
 
 ## Backlog
 
