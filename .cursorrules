@@ -1,7 +1,6 @@
-
 ## Stack
 
-- shadcn/ui dark
-- pnpm
 - next.js
-- supabase
+- tailwind, shadcn/ui dark
+- pnpm
+- hono, zod

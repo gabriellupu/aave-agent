@@ -56,20 +56,22 @@ export async function getNearBlocksAccountData(
 function getAccountAgeInDays(createdTimestamp: number | undefined): number {
   if (!createdTimestamp) return 0;
   const createdDate = new Date(createdTimestamp / 1_000_000);
-  console.log("Created Date", createdDate);
   const now = new Date();
   return Math.floor(
     (now.getTime() - createdDate.getTime()) / (1000 * 60 * 60 * 24)
   );
 }
 
-function getKarmaForAge(ageInDays: number): number {
-  if (ageInDays > 365 * 2) return 5; // 2+ years
-  if (ageInDays > 365) return 4; // 1+ year
-  if (ageInDays > 180) return 3; // 6+ months
-  if (ageInDays > 90) return 2; // 3+ months
-  if (ageInDays > 30) return 1; // 1+ month
-  return 0;
+function getKarmaAndNameForAge(ageInDays: number): {
+  name: string;
+  karma: number;
+} {
+  if (ageInDays > 365 * 5) return { name: "Account Legend", karma: 5 };
+  if (ageInDays > 365 * 2) return { name: "Account Veteran", karma: 4 };
+  if (ageInDays > 365) return { name: "Account Senior", karma: 3 };
+  if (ageInDays > 90) return { name: "Account Normie", karma: 2 };
+  if (ageInDays > 7) return { name: "Account Junior", karma: 1 };
+  return { name: "Account Newbie", karma: 0 };
 }
 
 function getKarmaForTransactions(txnsCount: number): number {
@@ -83,9 +85,7 @@ function getKarmaForTransactions(txnsCount: number): number {
 
 export async function getNearBlocksBadges(accountId: string): Promise<Badge[]> {
   const data = await getNearBlocksAccountData(accountId);
-  console.log(JSON.stringify(data, null, 2));
   const badges: Badge[] = [];
-  console.log("Created", data?.accountData?.created);
   const ageInDays = getAccountAgeInDays(
     data?.accountData?.created?.block_timestamp
   );
@@ -100,9 +100,8 @@ export async function getNearBlocksBadges(accountId: string): Promise<Badge[]> {
         : `Account is ${months} month${months > 1 ? "s" : ""} old`;
 
     badges.push({
-      name: "Account Veteran",
+      ...getKarmaAndNameForAge(ageInDays),
       description,
-      karma: getKarmaForAge(ageInDays),
     });
   }
 

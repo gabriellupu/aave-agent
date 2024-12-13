@@ -15,7 +15,7 @@ export async function GET() {
   const pluginData = {
     openapi: "3.0.0",
     info: {
-      title: "Bitte Karma API",
+      title: "Bitte Karma Agent API",
       description:
         "API for retrieving account karma and badges based on actions performed by the account on NEAR blockchain.",
       version: "1.0.0",
