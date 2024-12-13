@@ -56,7 +56,7 @@ export default function Home() {
             asChild
           >
             <a
-              href="https://github.com/alexastrum/bitte-karma-agent"
+              href="https://github.com/agentool/bitte-karma-agent"
               target="_blank"
               rel="noreferrer"
             >
