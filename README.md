@@ -6,11 +6,11 @@ Agent for quick lookup of a subjective account karma based on the account activi
 
 Bitte Karma Agent is a tool for assessing account karma based on activity history within the NEAR ecosystem.
 
-Built using Next.js 14 + Shadcn/ui + Elysia (using FastNear, NearSocial) + Swagger UI.
+Built using Next.js 14 + Shadcn/ui + Hono (using FastNear, NearSocial) + Zod + Swagger UI.
 
 ## Backlog
 
-- [ ] Refactor using Zod + Hono to have the OpenAPI schema auto-generated
+- [x] Refactor using Zod + Hono to have the OpenAPI schema auto-generated
 - Add more badges and APIs for the karma assessment. Some ideas:
   - [x] Badges for nearblocks.io
   - [ ] Badges for Mintbase NFT market value
@@ -78,8 +78,8 @@ make-agent deploy -u https://bitte-karma-agent.vercel.app
 - Errors starting the agent development server:
   - Try again in 24 hours
 - Unexpected response from the agent:
-  - Check response from https://localhost:3000/api/ai-plugin
+  - Check response from https://localhost:3000/.well-known/ai-plugin.json
   - Check response from your plugin API endpoints
   - Check the tunneling service url
 - Error deploying the agent:
-  - Check validity of https://bitte-karma-agent.vercel.app/api/ai-plugin openapi schema
+  - Check validity of https://bitte-karma-agent.vercel.app/.well-known/ai-plugin.json openapi schema
