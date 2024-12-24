@@ -1,16 +1,17 @@
 {
-  "name": "bitte-karma-agent",
-  "description": "Agent for quick lookup of a subjective account karma based on the account activity history across the NEAR ecosystem.",
+  "name": "bitte-aave-agent",
+  "description": "Agent that interacts with the Aave protocol.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev:next": "next dev",
     "dev:agent": "make-agent dev -s",
+    "dev:agent2": "make-agent dev -p 3200",
     "dev:agent-lt": "echo 'Password:' && curl ifconfig.me && echo '\n' && make-agent dev",
     "dev:agent-ngrok": "ngrok http 3000",
     "build": "next lint && next build",
-    "register": "make-agent register -u https://bitte-karma-agent.vercel.app",
-    "deploy": "make-agent deploy -u https://bitte-karma-agent.vercel.app"
+    "register": "make-agent register -u https://bitte-aave-agent.vercel.app",
+    "deploy": "make-agent deploy -u https://bitte-aave-agent.vercel.app"
   },
   "dependencies": {
     "@builddao/near-social-js": "^1.1.0",

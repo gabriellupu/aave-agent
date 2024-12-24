@@ -1,33 +1,28 @@
 import { handle } from "hono/vercel";
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
-import { getUserKarma } from "@/lib/user-karma";
 import { DEPLOYMENT_URL } from "vercel-url";
 import {
-  KarmaRequestParamsSchema,
-  KarmaResponseSchema,
+  AavePlatformInfoResponseSchema,
   ErrorResponseSchema,
 } from "@/lib/schemas";
+import { getAavePlatformInfo } from '@/lib/platform-info';
 
 const app = new OpenAPIHono();
 
-const getKarmaRoute = createRoute({
-  operationId: "get-account-karma",
+const getAavePlatformInfoRoute = createRoute({
+  operationId: "get-aave-platform-info",
   description:
-    "Get account karma and badges based on actions performed by the account.",
-
+    "Get Aave platform info including pools, strategies, rates, and more.",
   method: "get",
-  path: "/api/karma/{account}",
-  request: {
-    params: KarmaRequestParamsSchema,
-  },
+  path: "/api/aave/platform-info",
   responses: {
     200: {
       content: {
         "application/json": {
-          schema: KarmaResponseSchema,
+          schema: AavePlatformInfoResponseSchema,
         },
       },
-      description: "Successful response with karma and badges",
+      description: "Successful response with aave platform info",
     },
     400: {
       content: {
@@ -40,13 +35,9 @@ const getKarmaRoute = createRoute({
   },
 });
 
-app.openapi(getKarmaRoute, async (c) => {
-  const { account } = c.req.param();
-  const karma = await getUserKarma(account);
-  if (!karma) {
-    return c.json({ error: `User ${account} not found` }, 400);
-  }
-  return c.json(karma, 200);
+app.openapi(getAavePlatformInfoRoute, async (c) => {
+  const platformInfo = await getAavePlatformInfo();
+  return c.json(platformInfo, 200);
 });
 
 const key = JSON.parse(process.env.BITTE_KEY || "{}");
@@ -64,20 +55,20 @@ if (!config || !config.url) {
 app.doc("/.well-known/ai-plugin.json", {
   openapi: "3.0.0",
   info: {
-    title: "Bitte Karma API",
+    title: "Bitte Aave API",
     description:
-      "API for retrieving account karma and badges based on actions performed by the account on NEAR blockchain.",
+      "API that interacts with the Aave protocol.",
     version: "1.0.0",
   },
   servers: [{ url: config.url || DEPLOYMENT_URL }],
   "x-mb": {
     "account-id": key.accountId || "",
     assistant: {
-      name: "Karma Agent",
+      name: "Aave Assistant",
       description:
-        "An assistant that provides account karma and badges based on actions performed by the account and its current state.",
-      instructions: "Get information about an account's karma and badges.",
-      image: (config?.url || DEPLOYMENT_URL) + "/karma-agent-logo.png",
+        "An assistant that provides information on Aave pools, strategies, rates, and more. It can send transactions on your behalf, facilitate borrowing and lending, and offer insights into your positions, portfolio, and current strategy recommendations.",
+      instructions: "Get information about aave account.",
+      image: (config?.url || DEPLOYMENT_URL) + "/aave-agent-logo.png",
     },
   },
 });
@@ -87,7 +78,7 @@ app.get("/api/swagger", (c) => {
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Bitte Karma API Documentation</title>
+        <title>Bitte Aave API Documentation</title>
         <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.9.0/swagger-ui.css" />
         <style>
           body {

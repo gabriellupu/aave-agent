@@ -5,9 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bitte Karma Agent",
+  title: "Bitte Aave Agent",
   description:
-    "API for retrieving account karma and badges based on actions performed by the account on NEAR blockchain.",
+    "API with access to the Aave platform, capable of providing information on pools, strategies, rates, and more.",
 };
 
 export default function RootLayout({

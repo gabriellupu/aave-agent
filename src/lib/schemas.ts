@@ -1,32 +1,49 @@
 import { z } from "zod";
 
-export const KarmaRequestParamsSchema = z.object({
-  account: z
-    .string()
-    .describe(
-      "The identifier for the account to get karma and badges for, e.g. ref-finance.near"
-    ),
-});
+// export const AavePositionsRequestParamsSchema = z.object({
+//   account: z
+//     .string()
+//     .describe(
+//       "The identifier for the account to get aave positions"
+//     ),
+// });
 
-export const BadgeSchema = z.object({
+// export const AavePositionSchema = z.object({
+//   poolId: z.string(),
+//   amount: z.string(),
+// });
+
+export const AavePoolSchema = z.object({
+  liquidity: z.object({
+    usd: z.number(),
+    eth: z.number(),
+    native: z.number(),
+  }),
+  price: z.object({
+    eth: z.number(),
+    usd: z.number(),
+  }),
+  address: z.string(),
+  apy: z.number(),
   name: z.string(),
-  description: z.string(),
-  contractId: z.string().optional(),
-  minBalance: z.number().optional(),
-  karma: z.number(),
+  symbol: z.string(),
+  updatedAt: z.string().datetime(),
 });
 
-export const KarmaResponseSchema = z.object({
-  accountId: z.string(),
-  badges: z.array(BadgeSchema),
-  karma: z.number(),
-});
+// export const AavePositionsResponseSchema = z.object({
+//   positions: z.array(AavePositionSchema),
+// });
 
 export const ErrorResponseSchema = z.object({
   error: z.string(),
 });
 
-export type KarmaRequestParams = z.infer<typeof KarmaRequestParamsSchema>;
-export type KarmaResponse = z.infer<typeof KarmaResponseSchema>;
-export type Badge = z.infer<typeof BadgeSchema>;
+export const AavePlatformInfoResponseSchema = z.object({
+  pools: z.array(AavePoolSchema),
+});
+
+// export type AavePositionsRequestParams = z.infer<typeof AavePositionsRequestParamsSchema>;
 export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
+// export type Position = z.infer<typeof AavePositionSchema>;
+export type Pool = z.infer<typeof AavePoolSchema>;
+export type AavePlatformInfoResponse = z.infer<typeof AavePlatformInfoResponseSchema>;

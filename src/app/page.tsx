@@ -9,7 +9,7 @@ export default function Home() {
       <Card className="max-w-2xl mx-auto border-border">
         <CardHeader>
           <CardTitle className="text-4xl text-foreground">
-            Bitte Karma Agent
+            Bitte Aave Agent
           </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -56,7 +56,7 @@ export default function Home() {
             asChild
           >
             <a
-              href="https://github.com/agentool/bitte-karma-agent"
+              href="https://github.com/agentool/bitte-aave-agent"
               target="_blank"
               rel="noreferrer"
             >

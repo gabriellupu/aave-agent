@@ -1,34 +1,32 @@
-# Bitte Karma Agent
+# Bitte Aave Agent
 
-Agent for quick lookup of a subjective account karma based on the account activity history across the NEAR ecosystem.
+Agent with access to the Aave platform, capable of providing information on pools, strategies, rates, and more. It can send transactions on your behalf, facilitate borrowing and lending, and offer insights into your positions, portfolio, and current strategy recommendations.
 
 ## Overview
 
-Bitte Karma Agent is a tool for assessing account karma based on activity history within the NEAR ecosystem.
+Bitte Aave Agent is a tool that interacts with the Aave protocol.
 
 Built using Next.js 14 + Shadcn/ui + Hono (using FastNear, NearSocial) + Zod + Swagger UI.
 
 ## Backlog
 
-- [x] Refactor using Zod + Hono to have the OpenAPI schema auto-generated
-- Add more badges and APIs for the karma assessment. Some ideas:
-  - [x] Badges for nearblocks.io
-  - [ ] Badges for Mintbase NFT market value
-  - [ ] Badges for proof of personhood
-- [ ] Use NearSocial contract to store community awarded badges
-- [ ] Define a process for community voting on karma points for each badge
+- [ ] Has access to aave platform, can give you info:
+  - [ ] can offer insights into pools, strategies, rates, and more
+- [ ] Has access to your aave account, can do actions on your behalf:
+  - [ ] can offer insights into your positions, portfolio, and current strategy recommendations
+  - [ ] can facilitate borrowing and lending
 
 ## Project Walkthrough
 
-Bitte Karma Agent facilitates the development of AI-powered tools for evaluating account karma. The template supports creating, managing, and deploying karma assessment functionalities, starting with badges.
+Bitte Aave Agent facilitates the development of AI-powered tools for evaluating aave account. The template supports creating, managing, and deploying aave functionalities, starting with pool/strategies/rates/ etc.
 
 ### API Base URL
 
-<https://bitte-karma-agent.vercel.app>
+<https://bitte-aave-agent.vercel.app>
 
 ### Endpoints
 
-- Account Karma `GET` `/api/karma/{account}`
+- Aave Account Info `GET` `/api/aave/{account}`
 
 ### Usage
 
@@ -62,13 +60,13 @@ Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment)
 NOTE: Only run this once, when creating a new agent.
 
 ```bash
-make-agent register https://bitte-karma-agent.vercel.app
+make-agent register https://bitte-aave-agent.vercel.app
 ```
 
 ### Agent redeployment
 
 ```bash
-make-agent deploy -u https://bitte-karma-agent.vercel.app
+make-agent deploy -u https://bitte-aave-agent.vercel.app
 ```
 
 ## Troubleshooting
@@ -82,4 +80,4 @@ make-agent deploy -u https://bitte-karma-agent.vercel.app
   - Check response from your plugin API endpoints
   - Check the tunneling service url
 - Error deploying the agent:
-  - Check validity of https://bitte-karma-agent.vercel.app/.well-known/ai-plugin.json openapi schema
+  - Check validity of https://bitte-aave-agent.vercel.app/.well-known/ai-plugin.json openapi schema
