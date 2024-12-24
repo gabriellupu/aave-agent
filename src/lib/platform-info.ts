@@ -1,17 +1,12 @@
-import { Position } from "@/lib/position";
-import { Pool } from "@/lib/pool";
 import { getAavePools } from "./aave-pools";
-
-export interface AavePlatformInfoResponse {
-  pools: Pool[];
-}
+import { getAaveDailyVolume24h } from './aave-daily-volume-24h';
+import { AavePlatformInfoResponse } from './schemas';
 
 export const getAavePlatformInfo =
   async (): Promise<AavePlatformInfoResponse> => {
     const platformInfo: AavePlatformInfoResponse = {
       pools: await getAavePools(),
-      // ...(await computeSocialBadges(accountId)),
-      // ...(await getNearBlocksBadges(accountId)),
+      dailyVolume24h: await getAaveDailyVolume24h(),
     };
 
     return platformInfo;
