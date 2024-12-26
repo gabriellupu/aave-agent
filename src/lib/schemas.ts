@@ -13,6 +13,10 @@ import { z } from "zod";
 //   amount: z.string(),
 // });
 
+// export const AavePositionsResponseSchema = z.object({
+//   positions: z.array(AavePositionSchema),
+// });
+
 export const AavePoolSchema = z.object({
   liquidity: z.object({
     usd: z.number(),
@@ -28,6 +32,20 @@ export const AavePoolSchema = z.object({
   name: z.string(),
   symbol: z.string(),
   updatedAt: z.string().datetime(),
+});
+
+export const ReserveSchema = z.object({
+  id: z.string(),
+  aToken: z.string(),
+  asset: z.string(),
+  pool: z.string(),
+  symbol: z.string(),
+  decimals: z.number(),
+  priceInEth: z.string(),
+  borrow: z.number(),
+  deposit: z.number(),
+  repay: z.number(),
+  withdrawal: z.number(),
 });
 
 export const AaveDailyVolume24hSchema = z.object({
@@ -46,60 +64,36 @@ export const AaveDailyVolume24hSchema = z.object({
   totalRedeemedUSD: z.number(),
   totalRedeemedETH: z.number(),
   reserves: z.object({
-    v1: z.array(
-      z.object({
-        id: z.string(),
-        aToken: z.string(),
-        asset: z.string(),
-        pool: z.string(),
-        symbol: z.string(),
-        decimals: z.number(),
-        priceInEth: z.string(),
-        borrow: z.number(),
-        deposit: z.number(),
-        repay: z.number(),
-        withdrawal: z.number(),
-      })
-    ),
-    v2: z.array(
-      z.object({
-        id: z.string(),
-        aToken: z.string(),
-        asset: z.string(),
-        pool: z.string(),
-        symbol: z.string(),
-        decimals: z.number(),
-        priceInEth: z.string(),
-        borrow: z.number(),
-        deposit: z.number(),
-        repay: z.number(),
-        withdrawal: z.number(),
-      })
-    ),
-    stk: z.array(
-      z.object({
-        id: z.string(),
-        asset: z.string(),
-        symbol: z.string(),
-        decimals: z.number(),
-        priceInEth: z.string(),
-        stake: z.number(),
-        redeem: z.number(),
-      })
-    ),
-  })
-
+    v1: z.array(ReserveSchema),
+    v2: z.array(ReserveSchema),
+    stk: z.array(ReserveSchema),
+      asset: z.string(),
+      symbol: z.string(),
+      decimals: z.number(),
+      priceInEth: z.string(),
+      stake: z.number(),
+      redeem: z.number(),
+    })
 });
 
-// export const AavePositionsResponseSchema = z.object({
-//   positions: z.array(AavePositionSchema),
-// });
-
+export const AaveRateHistorySchema = z.object({
+  liquidityRate_avg: z.number(),
+  variableBorrowRate_avg: z.number(),
+  utilizationRate_avg: z.number(),
+  stableBorrowRate_avg: z.number(),
+  x: z.object({
+    year: z.number(),
+    month: z.number(),
+    date: z.number(),
+    hours: z.number(),
+  })
+});
 
 
 export const AavePlatformInfoResponseSchema = z.object({
   pools: z.array(AavePoolSchema),
   dailyVolume24h: AaveDailyVolume24hSchema.optional(),
+  ratesHistory: z.array(AaveRateHistorySchema).optional(),
 });
 
 export const ErrorResponseSchema = z.object({
